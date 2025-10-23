@@ -947,7 +947,7 @@
                         <li>OOP, Coroutines, Async/Await</li>
                         <li>ScriptableObjects</li>
                         <li>Gameplay System Architecture</li>
-                        <li>Design Patterns (Singleton, Observer, Factory)</li>
+                        <li>Design Patterns (Singleton, Observer, Factory...)</li>
                     </ul>
                 </div>
 
@@ -990,7 +990,7 @@
                     <ul class="skill-list">
                         <li>REST API</li>
                         <li>UnityWebRequest</li>
-                        <li>JSON Data Handling</li>
+                        <li>SocketIO</li>
                         <li>Token Authentication</li>
                     </ul>
                 </div>
@@ -1016,17 +1016,6 @@
                         <li>Merge Conflict Resolution</li>
                     </ul>
                 </div>
-
-                <div class="skill-category">
-                    <span class="skill-icon">🚀</span>
-                    <h3>CI/CD & Automation</h3>
-                    <ul class="skill-list">
-                        <li>Unity Cloud Build</li>
-                        <li>Jenkins Automation</li>
-                        <li>Build Pipeline Setup</li>
-                        <li>Automated Testing</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>
@@ -1034,7 +1023,6 @@
     <section class="contact" id="contact">
         <div class="section-header">
             <h2 class="section-title">Let's Work Together</h2>
-            <p class="section-subtitle">Get in touch for collaboration opportunities</p>
         </div>
 
         <div class="contact-info">
@@ -1048,12 +1036,6 @@
                 <div class="contact-icon">📱</div>
                 <h3>Phone</h3>
                 <p><a href="tel:+84836768866">(+84) 836.768.866</a></p>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">📍</div>
-                <h3>Location</h3>
-                <p>Tan Tien, Hung Yen, Vietnam</p>
             </div>
         </div>
 
@@ -1152,13 +1134,13 @@
         });
 
         // Counter animation for stats
-        const animateCounter = (element, target) => {
+        const animateCounter = (element, target, text) => {
             let current = 0;
             const increment = target / 50;
             const timer = setInterval(() => {
                 current += increment;
                 if (current >= target) {
-                    element.textContent = target;
+                    element.textContent = text;
                     clearInterval(timer);
                 } else {
                     element.textContent = Math.floor(current);
@@ -1176,7 +1158,7 @@
                             const num = parseInt(text);
                             if (!isNaN(num)) {
                                 stat.textContent = '0';
-                                setTimeout(() => animateCounter(stat, num), 200);
+                                setTimeout(() => animateCounter(stat, num, text), 200);
                             }
                         }
                     });
@@ -1189,4 +1171,5 @@
         if (heroSection) statsObserver.observe(heroSection);
     </script>
 </body>
+
 </html>
