@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Nguyen Phuong Nam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00d4ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #00d4ff, #ff00ff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 2px solid #00d4ff;
+            box-shadow: none;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* PDF Container */
+        .pdf-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            background: #fff;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 212, 255, 0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            color: #00d4ff;
+        }
+
+        /* Error Message */
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .error-message h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .error-message p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            .pdf-container {
+                padding: 10px;
+            }
+        }
+
+        /* Alternative fallback for mobile */
+        .mobile-fallback {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-fallback {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">📄 CV - NGUYEN PHUONG NAM</div>
+    <div class="actions">
+        <a href="CV Nguyen Phuong Nam.pdf" download class="btn">
+            ⬇️ Download PDF
+        </a>
+        <a href="index.html" class="btn secondary">
+            ← Back to Portfolio
+        </a>
+    </div>
+</div>
+
+<div class="pdf-container">
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading CV...</div>
+    </div>
+
+    <div class="error-message" id="errorMessage">
+        <div class="error-icon">⚠️</div>
+        <h3>Cannot Display PDF</h3>
+        <p>Your browser may not support inline PDF viewing. Please download the CV using the button above.</p>
+        <a href="CV Nguyen Phuong Nam.pdf" download class="btn">
+            ⬇️ Download CV
+        </a>
+    </div>
+
+    <iframe
+            id="pdfViewer"
+            class="pdf-viewer"
+            src="CV Nguyen Phuong Nam.pdf"
+            type="application/pdf"
+    ></iframe>
+</div>
+
+<script>
+    const pdfViewer = document.getElementById('pdfViewer');
+    const loading = document.getElementById('loading');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Hide loading when PDF loads
+    pdfViewer.addEventListener('load', function() {
+        setTimeout(() => {
+            loading.style.display = 'none';
+        }, 500);
+    });
+
+    // Show error if PDF fails to load
+    pdfViewer.addEventListener('error', function() {
+        loading.style.display = 'none';
+        errorMessage.classList.add('show');
+    });
+
+    // Alternative: Check if PDF loaded after timeout
+    setTimeout(() => {
+        if (loading.style.display !== 'none') {
+            loading.style.display = 'none';
+            // PDF might still be loading, this is just a safety timeout
+        }
+    }, 3000);
+
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // ESC key to go back
+        if (e.key === 'Escape') {
+            window.location.href = 'index.html';
+        }
+        // Ctrl/Cmd + D to download
+        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+            e.preventDefault();
+            window.location.href = 'CV Nguyen Phuong Nam.pdf';
+        }
+    });
+</script>
+</body>
+</html>
